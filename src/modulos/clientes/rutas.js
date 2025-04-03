@@ -26,18 +26,30 @@ router.get("/:id", async function(req, res) {
     } 
 })
 
+router.post('/agregar', async function (req, res) {
+    try {
+      const item = await controlador.agregar(req.body);
+      if (req.body.id == 0) {
+        mensaje = 'Datos insertados'
+      } else {
+        mensaje = 'Datos actualizados'
+      }
+      respuesta.success(req, res, 200, mensaje);
+  
+    } catch (error) {
+      respuesta.error(req, res, 500, 'Error al obtener datos', error);
+    }
+  })
+  
+  router.post('/eliminar', async function (req, res) {
+    try {
+      const item = await controlador.eliminar(req.body);
+      respuesta.success(req, res, 200, 'dato eliminado');
+    } catch (error) {
+      respuesta.error(req, res, 500, 'Error al obtener datos', error);
+    }
+  })
 
-router.get("/update",function(req, res) {
-    res.send("Cliente actualizado");
-})
-
-
-
-
-router.post('/agregar', function (req, res) {
-    const agregar = controlador.agregar(req.body)
-respuesta.success(req, res, 200, agregar)
-})
 
 
 module.exports = router;

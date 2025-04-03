@@ -11,10 +11,12 @@ function uno(id) {
 }
 
 function agregar(data) {
-  return bd.agregar(TABLA, data);
+  return bd.agregar(TABLA, body);
 }
 
-function eliminar() {}
+function eliminar (body){
+  return bd.eliminar(TABLA,body)
+}
 
 function actualizar() {}
 

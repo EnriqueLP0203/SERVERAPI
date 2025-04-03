@@ -46,17 +46,38 @@ function uno(TABLA, id) {
   });
 }
 
-function agregar(TABLA, data) {
-  const datosdetabla = {
-    tabla: TABLA,
-    data: data,
-  };
-  return datosdetabla;
+function insertar(TABLA,data) {
+  return new Promise((resolve, reject) => {
+     conexion.query(`INSERT INTO ${TABLA} SET  ?`,data, (error, result) => {
+         return error ? reject(error) : resolve(result);
+     })
+ })
+}
+function actualizar(TABLA, data) {
+ return new Promise((resolve, reject) => {
+     conexion.query(`UPDATE ${TABLA} SET ? WHERE id = ?`,[data,data.id], (error, result) => {
+         return error ? reject(error) : resolve(result);
+     })
+ })
+
 }
 
-function eliminar(tabla, id) {}
 
-function actualizar(table, id, data) {}
+function agregar(TABLA, data) {
+ if (data && data.id == 0) {
+     return insertar(TABLA, data)
+ } else {
+     return actualizar(TABLA, data)
+ }
+}
+
+function eliminar(tabla, data) {
+  return new Promise((resolve, reject) => {
+      conexion.query(`DELETE FROM  ${tabla} WHERE id = ?`,data.id, (error, result) => {
+          return error ? reject(error) : resolve(result);
+      })
+    })
+}
 
 module.exports = {
   todos,
