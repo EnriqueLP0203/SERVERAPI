@@ -1,30 +1,27 @@
-const bd = require('../../BD/mysql')
+const bd = require("../../BD/mysql");
 
-const TABLA = 'clientes'
+const TABLA = "clientes";
 
-function todos(){
-    return bd.todos(TABLA)
-
+function todos() {
+  return bd.todos(TABLA);
 }
 
-
-function uno(){
-
+function uno(id) {
+    return bd.uno(TABLA, id)
 }
 
-function agregar(data){
-    return bd.agregar(TABLA, data)
-
+function agregar(data) {
+  return bd.agregar(TABLA, data);
 }
 
-function eliminar(){
+function eliminar() {}
 
-}
+function actualizar() {}
 
-function actualizar(){
-
-}
-
-module.exports={
-    todos, uno, agregar, eliminar, actualizar
-}
+module.exports = {
+  todos,
+  uno,
+  agregar,
+  eliminar,
+  actualizar,
+};

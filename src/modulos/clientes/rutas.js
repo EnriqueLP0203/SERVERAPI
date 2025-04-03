@@ -9,14 +9,23 @@ router.get("/", async function(req, res) {
         const item =await controlador.todos()
         respuesta.success(req, res, 200, item)
     } catch (error) {
-        respuesta.success(req, res, 500, error)
+        respuesta.error(req, res, 500, error)
         
-    }
-
-    
+    } 
     
 
 })
+
+router.get("/:id", async function(req, res) {
+    try {
+        const item =await controlador.uno(req.params.id)
+        respuesta.success(req, res, 200, item)
+    } catch (error) {
+        respuesta.error(req, res, 500, error)
+        
+    } 
+})
+
 
 router.get("/update",function(req, res) {
     res.send("Cliente actualizado");

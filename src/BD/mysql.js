@@ -1,5 +1,5 @@
 const config = require("../config");
-const mysql = require("mysql2");
+const mysql = require("mysql");
 
 const dbconfig = {
   host: config.mysql.host,
@@ -9,7 +9,7 @@ const dbconfig = {
 };
 
 function conMysql() {
-  const conexion = mysql.createConnection(dbconfig);
+  conexion = mysql.createConnection(dbconfig);
   conexion.connect((err) => {
     if (err) {
       console.log("[BD err]", err);
@@ -31,14 +31,20 @@ function conMysql() {
 conMysql();
 
 function todos(TABLA) {
-  return new Promise((resolve, reeject) => {
+  return new Promise((resolve, reject) => {
     conexion.query(`SELECT * FROM ${TABLA};`, (error, result) => {
-      return error ? reeject(error) : resolve(result);
+      return error ? reject(error) : resolve(result);
     });
   });
 }
 
-function uno(TABLA, id) {}
+function uno(TABLA, id) {
+  return new Promise((resolve, reject) => {
+    conexion.query(`SELECT *FROM ${TABLA} WHERE id =${id};`, (error, result) => {
+      return error ? reject(error) : resolve(result);
+    });
+  });
+}
 
 function agregar(TABLA, data) {
   const datosdetabla = {
